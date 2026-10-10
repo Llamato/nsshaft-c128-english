@@ -336,6 +336,36 @@ Or supply installation paths without changing the scripts:
 `CC65_BIN` and `VICE_X128` environment variables are also supported. The
 output is `build/nsshaft-c128.prg`; the font input is under `assets/fonts/`.
 
+### Linux / Nix build (x86_64-linux)
+
+This repository also includes a reproducible Nix build that uses `cc65`
+(`ca65`/`ld65`) and the existing `c128-prg.cfg` linker configuration.
+
+```bash
+nix build
+```
+
+The executable and other build artifacts are placed in `result/`:
+
+- `result/nsshaft-c128.prg`
+- `result/nsshaft-c128.lst`
+- `result/nsshaft-c128.lbl`
+- `result/nsshaft-c128.map`
+
+Copy the PRG where you need it with:
+
+```bash
+cp result/nsshaft-c128.prg /path/to/destination/
+```
+
+For iterative local builds with the same toolchain:
+
+```bash
+nix develop
+ca65 --version
+ld65 --version
+```
+
 On a real C128, use the 40-column video output, load the PRG normally from
 BASIC 7, and run it:
 

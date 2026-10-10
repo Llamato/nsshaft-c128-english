@@ -1,0 +1,30 @@
+name: Nix build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Build PRG with flake
+        run: nix build --print-build-logs
+
+      - name: Upload PRG and build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nsshaft-c128-prg
+          path: |
+            result/nsshaft-c128.prg
+            result/nsshaft-c128.lst
+            result/nsshaft-c128.lbl
+            result/nsshaft-c128.map
